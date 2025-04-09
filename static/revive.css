@@ -1,0 +1,156 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 20px;
+    background-color: #f0f0f0; /* Light background for contrast */
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container-box {
+    width: 680px;
+    height: 700px;
+    background-color: #708090;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    position: relative;
+    border-radius: 20px;
+}
+.logo-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.logo {
+    width: 80px; /* Adjust size as needed */
+}
+
+.logo-name {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 700; 
+    color: #000000; /* Text color */
+    margin-top: 10px; /* Space between logo and name */
+    font-size: 20px;
+}
+.rectangle-box {
+    margin-top: 10px;
+    background-color: #ffffff;
+    width: 60%;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    text-align: center;
+    font-weight: bold;
+}
+
+input {
+    width: 93.7%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color:#FAFAFA;
+    color: #4E5E6F;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    color: black;
+    background-color:  #CBD5E0;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 700;
+}
+
+button:hover {
+    background-color: #708090; /* Darker shade on hover */
+}
+
+.social-buttons {
+    display: flex; /* Use flexbox for horizontal alignment */
+    justify-content: space-between; /* Space between buttons */
+    margin-top: 20px; /* Add some space above the buttons */
+}
+
+.social-btn {
+    display: flex; /* Use flexbox to align icon and text */
+    align-items: center; /* Center items vertically */
+    padding: 10px 15px; /* Add padding */
+    border: none; /* Remove default border */
+    border-radius: 10px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor on hover */
+    background-color: #f0f0f0; /* Background color */
+    transition: background-color 0.3s; /* Smooth background color transition */
+    margin-right:5px;
+}
+
+.social-btn:hover {
+    background-color: #e0e0e0; /* Change background on hover */
+}
+
+.social-icon {
+    margin-right: 8px; /* Space between icon and text */
+}
+
+p {
+    text-align: center;
+}
+
+.password-container {
+    position: relative;
+}
+
+.eye-icon {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+
+.remember-me-container {
+    display: flex; /* Use flexbox for horizontal alignment */
+    align-items: center; /* Center items vertically */
+    margin-top: 20px; /* Add some space above */
+}
+
+.remember-me-label {
+    display: flex; /* Use flexbox to arrange radio button and text */
+    align-items: center; /* Center items vertically */
+    margin-right: auto; /* Push link to the right */
+}
+
+.forgot-password {
+    margin-left: 10px; /* Space between radio button and link */
+    text-decoration: none; /* Remove underline */
+    color: #007bff; /* Link color */
+}
+
+.forgot-password:hover {
+    text-decoration: underline; /* Underline on hover */
+}
+
+.eye-icon {
+    cursor: pointer;
+    position: absolute;
+    right: 15px;
+    top: 30px;
+}
+.password-container {
+    position: relative;
+}

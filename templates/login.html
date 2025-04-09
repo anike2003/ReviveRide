@@ -1,0 +1,79 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <link rel="stylesheet" href="{% static 'revive.css'%}">
+</head>
+<body>
+    <div class="container">
+        <div class="container-box">
+           
+            <div class="logo-container">
+                <img src="{% static 'img/logo_img.png'%}" alt="Logo" class="logo">
+                <h1 class="logo-name">ReviveRide Spa</h1>
+            </div>
+            <div class="rectangle-box">
+                <h2 style="font-weight:bolder; font-size:30px;">Login to your account</h2>
+                <form action="login" method="POST" name="login">
+                    {%csrf_token%}
+                    <input type="email" placeholder="Email" name="email" required>
+                    <div class="password-container">
+                        <input type="password" id="password" placeholder="Password" name="password" required>
+                        <span id="toggle-password" class="eye-icon">
+                            <!-- Eye icon for showing password -->
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="rgba(0, 0, 0, 0.5)" stroke-width="2" viewBox="0 0 24 24">
+                                <path d="M1 12s3.5-9 11-9 11 9 11 9-3.5 9-11 9-11-9-11-9z"/>
+                                <circle cx="12" cy="12" r="3"/>
+                            </svg>
+                       </span>
+                    </div>
+                    <div class="remember-me-container">
+                        <label class="remember-me-label">
+                            <input type="radio" name="remember-me" value="yes"> <span style="font-weight: bold;font-size:15px;"> </span>Remember</span>
+                        </label>
+                        <a href="#" class="forgot-password" >Forgot password?</a>
+                    </div>
+<br>
+                    <button type="submit">Login with email</button>
+                </form>
+                <p>Or login with:</p>
+                <div class="social-buttons">
+                    <button class="social-btn">
+                        <img src="{% static 'img/icons8-google-48.png'%}" alt="Google" class="social-icon" width="20" height="20"> <!-- Google icon -->
+                        Google
+                    </button>
+                    <button class="social-btn">
+                        <img src="{% static 'img/icons8-apple-30.png'%}" alt="Apple" class="social-icon" width="20" height="20"> <!-- Apple icon -->
+                        Apple
+                    </button>
+                </div>
+                <p>Don't have an account?<a href="{%url 'signup' %}" style="color:#718096;"> Signup now.</a></p>
+           
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('signup-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            alert('Signup form submitted!');
+        });
+
+        document.getElementById('toggle-password').addEventListener('click', function () {
+            const passwordInput = document.getElementById('password');
+            
+            // Toggle the type attribute
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+            
+            // Toggle the eye icon
+            this.innerHTML = type === "password" ?
+            '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="rgba(0, 0, 0, 0.5)" stroke-width="2" viewBox="0 0 24 24"><path d="M1 12s3.5-9 11-9 11 9 11 9-3.5 9-11 9-11-9-11-9z"/><circle cx="12" cy="12" r="3"/></svg>' :
+            '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="rgba(0, 0, 0, 0.5)" stroke-width="2" viewBox="0 0 24 24"><path d="M1 12s3.5-9 11-9 11 9 11 9-3.5 9-11 9-11-9-11-9z"/><path d="M1 12s3.5-9 11-9 11 9 11 9z" fill="#fff"/></svg>'; // Change to an eye-off icon when showing password
+    });
+
+</script>
+</body>
+</html>
