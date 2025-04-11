@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>ReviveRide -Feedback</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="css/style.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container-xxl position-relative bg-white d-flex p-0">
+        <!-- Spinner Start -->
+        <div id="spinner"
+            class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+            <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+        <!-- Spinner End -->
+
+
+        <!-- Sidebar Start -->
+        <div class="sidebar pe-4 pb-3">
+            <nav class="navbar bg-light navbar-light">
+
+                <div class="d-flex align-items-center ms-4 mb-4 mt-5">
+                    <div class="position-relative">
+                        <a href="landingPage.html"><img class="rounded-circle img-fluid" src="img/logo_img.png" alt=""
+                                style="max-width: 70px; height: auto;"></a>
+                        <h5 class="mt-2">ReviveRide Spa</h5>
+                    </div>
+                </div>
+                <div class="navbar-nav w-100">
+                    <a href="index.html" class="nav-item nav-link"><i
+                            class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
+                                class="fa fa-calendar-alt me-2"></i>Authentication</a>
+                        <div class="dropdown-menu bg-transparent border-0">
+                            <a href="signin.html" class="dropdown-item">Login</a>
+                            <a href="signup.html" class="dropdown-item">Sign Up</a>
+                            <a href="createID.html" class="dropdown-item">Create an ID</a>
+                            <a href="forgotPassword.html" class="dropdown-item">Forgot Password</a>
+                        </div>
+                    </div>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
+                                class="fa fa-cogs me-2"></i>Service Option</a>
+                        <div class="dropdown-menu bg-transparent border-0">
+                            <a href="feedback.html" class="dropdown-item">Customer Feedback</a>
+                            <a href="chatbox.html" class="dropdown-item">Customer Chatbox</a>
+                        </div>
+                    </div>
+                    <!-- <a href="form.html" class="nav-item nav-link"><i class="fa fa-credit-card me-2"></i>Service</a> -->
+                    <a href="locationFinder.html" class="nav-item nav-link"><i
+                            class="fa fa-map-marker-alt me-2"></i>Location
+                        Finder</a>
+                    <a href="service.html" class="nav-item nav-link"><i class="fa fa-receipt me-2"></i>Transaction
+                        History</a>
+                    <div class="nav-item dropdown">
+                        <a href="notification.html" class="nav-link"><i class="fa fa-bell me-2"></i>Notification</a>
+
+                    </div>
+                </div>
+        </div>
+        </nav>
+        <!-- Sidebar End -->
+
+
+        <!-- Content Start -->
+        <div class="content">
+            <!-- Navbar Start -->
+            <nav class="navbar navbar-expand bg-light navbar-light sticky-top px-4 py-0">
+                <!-- Sidebar toggler (hamburger icon) for smaller screens -->
+                <a href="#" class="sidebar-toggler flex-shrink-0 me-3">
+                    <i class="fa fa-bars"></i>
+                </a>
+
+                <!-- BRAND / LOGO (Visible on large screens) -->
+                <a href="index.html" class="navbar-brand d-none d-lg-flex align-items-center me-4">
+
+                </a>
+
+                <!-- BRAND / LOGO (Visible on small screens) -->
+                <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
+
+                </a>
+
+                <!-- GREETING TEXT: “Hi Rodiat” + “Welcome to ReviveRide Spa” -->
+                <div class="d-none d-lg-block ms-3">
+                    <!-- <h6 class="mb-0">Hi Rodiat</h6> -->
+                    <span style="color: white; font-size: 13px;">Welcome to ReviveRide Spa</span>
+                </div>
+
+                <!-- SEARCH BAR -->
+                <!-- Adjust breakpoints as needed (e.g., d-none d-md-flex) -->
+                <form class="d-none d-md-flex ms-auto me-4" style="width: 400px; position: relative;">
+                    <input class="form-control border-0 ps-5" type="search" placeholder="Search..."
+                        style="width: 100%;">
+                    <i class="fa fa-search"
+                        style="position: absolute; top: 50%; left: 15px; transform: translateY(-50%); color: gray;"></i>
+                </form>
+
+                <!-- NAV RIGHT ICONS -->
+                <div class="navbar-nav align-items-center">
+                    <!-- Mail Icon -->
+                    <div class="nav-item dropdown me-3">
+                        <a href="#" class="nav-link" data-bs-toggle="dropdown">
+                            <i class="fa fa-envelope me-lg-2"></i>
+                        </a>
+                        <!-- Optional dropdown menu for messages -->
+                    </div>
+
+                    <!-- Notification Icon -->
+                    <div class="nav-item dropdown me-3">
+                        <a href="#" class="nav-link" data-bs-toggle="dropdown">
+                            <i class="fa fa-bell me-lg-2"></i>
+                        </a>
+                        <!-- Optional dropdown menu for notifications -->
+                    </div>
+
+                    <!-- User Profile -->
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link d-flex align-items-center" data-bs-toggle="dropdown">
+                            <!-- User avatar -->
+                            <img class="rounded-circle me-2" src="https://www.w3schools.com/howto/img_avatar.png"
+                                alt="Default Profile Picture" style="width: 30px; height: 30px;">
+                            <!-- Name & Role stacked -->
+                            <div class="d-none d-lg-flex flex-column">
+                                <span style="font-size: 13px;">Rodiat</span>
+                            </div>
+                        </a>
+
+                    </div>
+                </div>
+            </nav>
+            <!-- Navbar End -->
+
+            <!-- Customer Feedback -->
+
+            <div class="container vh-100 d-flex justify-content-center align-items-center">
+                <div class="row justify-content-center">
+                    <div class="col-md-6">
+                        <textarea class="form-control rounded-3 shadow-sm" rows="10" cols="500"
+                            placeholder="Please enter service feedback ..."></textarea>
+                        <div class="d-flex justify-content-end mt-3">
+                            <button class="btn btn-secondary rounded-pill px-4 d-flex align-items-center">
+                                Send <span class="ms-2">&#9654;</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <!-- Back to Top -->
+    </div>
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/chart/chart.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/waypoints/waypoints.min.js"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="lib/tempusdominus/js/moment.min.js"></script>
+    <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
+    <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+
+
+    <!-- Template Javascript -->
+    <script src="js/main.js"></script>
+</body>
+
+</html>
