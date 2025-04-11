@@ -1,0 +1,531 @@
+/********** Template CSS **********/
+:root {
+  --primary: #009cff;
+  --light: #f3f6f9;
+  --dark: #191c24;
+}
+
+/*** Global Utilities ***/
+.back-to-top {
+  position: fixed;
+  display: none;
+  right: 45px;
+  bottom: 45px;
+  z-index: 99;
+}
+
+/*** Spinner ***/
+#spinner {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.5s ease-out, visibility 0s linear 0.5s;
+  z-index: 99999;
+}
+
+#spinner.show {
+  visibility: visible;
+  opacity: 1;
+  transition: opacity 0.5s ease-out, visibility 0s linear 0s;
+}
+
+/*** Buttons ***/
+.btn {
+  transition: 0.5s;
+}
+
+.btn.btn-primary {
+  color: #ffffff;
+}
+
+.btn-square {
+  width: 38px;
+  height: 38px;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: normal;
+  border-radius: 50px;
+}
+
+.btn-sm-square {
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: normal;
+  border-radius: 50px;
+}
+
+.btn-lg-square {
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: normal;
+  border-radius: 50px;
+}
+
+/*** Layout ***/
+/* Sidebar */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 250px;
+  height: 100vh;
+  overflow-y: hidden;
+  background-color: #708090;
+  /* or use: var(--light) */
+  transition: 0.5s;
+  z-index: 999;
+}
+
+/* Main content */
+.content {
+  margin-left: 250px;
+  min-height: 100vh;
+  flex-grow: 1;
+  transition: 0.5s;
+}
+
+/* Dropdown adjustment */
+.custom-dropdown {
+  margin-left: 1500px;
+  /* Adjust to move the dropdown right */
+}
+
+/*** Notification & Custom Containers ***/
+.container-custom {
+  width: 100%;
+  max-width: 1094px;
+  background-color: #595e63;
+  border-radius: 10px;
+  padding: 20px;
+  margin: auto;
+}
+
+/*** Custom Buttons and Notifications ***/
+.btn-custom {
+  background-color: #595e63;
+  color: white;
+  border-radius: 20px;
+  padding: 10px 20px;
+  border: none;
+  transition: background-color 0.3s;
+}
+
+.btn-custom.active {
+  background-color: white;
+  color: #595e63;
+}
+
+.icon-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #708090;
+  color: white;
+  font-size: 24px;
+  border-radius: 50%;
+  padding: 10px;
+  width: 50px;
+  height: 50px;
+  flex-shrink: 0;
+}
+
+.notification {
+  padding: 15px;
+  border-radius: 10px;
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+}
+
+.notification-text {
+  flex-grow: 1;
+  background-color: white;
+  padding: 15px;
+  border-radius: 10px;
+}
+
+/*** Map & Sidebar2 ***/
+.sidebar2 {
+  width: 800px;
+  background: white;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  overflow-y: auto;
+  padding: 20px;
+}
+
+.map-wrapper {
+  display: flex;
+}
+
+.map-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+/*** Mobile Warning ***/
+.mobile-warning {
+  display: none;
+}
+
+/*** Custom Card ***/
+.custom-card {
+  width: 100%;
+  max-width: 100%;
+}
+
+/*** Hero Section & Signup Form ***/
+.hero-section {
+  height: 100vh;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.hero {
+  background: url('../img/car-1281640_1280.jpg') no-repeat center center/cover;
+  position: relative;
+  color: white;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2rem;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+}
+
+.signup-container {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  background: white;
+}
+
+.signup-card {
+  width: 100%;
+  max-width: 340px;
+}
+
+.logo-img {
+  width: 70px;
+}
+
+/*** Thinking Indicator ***/
+.thinking-indicator .dot {
+  animation: bounce 1s infinite alternate;
+}
+
+.thinking-indicator .dot:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.thinking-indicator .dot:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes bounce {
+  0% {
+    transform: translateY(0);
+  }
+
+  100% {
+    transform: translateY(-6px);
+  }
+}
+
+/*** Responsive Adjustments ***/
+@media (max-width: 768px) {
+  .hero-section {
+    flex-direction: column;
+    height: 100vh;
+  }
+
+  .hero,
+  .signup-container {
+    flex: none;
+    width: 100%;
+    height: 50%;
+  }
+
+  .hero-content h1 {
+    font-size: 1.5rem;
+  }
+
+  .hero-content p {
+    font-size: 0.9rem;
+  }
+
+  .signup-card {
+    max-width: 300px;
+  }
+
+  .logo-img {
+    width: 50px;
+  }
+
+  .map-wrapper {
+    display: none !important;
+  }
+
+  .mobile-warning {
+    display: block !important;
+    text-align: center;
+    padding: 40px 20px;
+    background-color: #fff3cd;
+    color: #856404;
+    border: 1px solid #ffeeba;
+    border-radius: 8px;
+    margin: 20px;
+  }
+
+  .mobile-warning h4 {
+    font-weight: bold;
+    font-size: 1.5rem;
+  }
+
+  .custom-card {
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 576px) {
+  .hero-content h1 {
+    font-size: 1.2rem;
+  }
+
+  .hero-content p {
+    font-size: 0.8rem;
+  }
+
+  .signup-card {
+    max-width: 100%;
+    margin-top: 80px;
+  }
+
+  .logo-img {
+    display: none;
+  }
+}
+
+/* Enable scrollbar for table containers on small screens */
+@media (max-width: 768px) {
+  .table-container {
+    overflow-y: auto;
+  }
+}
+
+/*** Sidebar & Content Adjustments for Larger Screens ***/
+@media (min-width: 992px) {
+  .sidebar {
+    margin-left: 0;
+  }
+
+  .sidebar.open {
+    margin-left: -250px;
+  }
+
+  .content {
+    width: calc(100% - 250px);
+  }
+
+  .content.open {
+    width: 100%;
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 991.98px) {
+  .sidebar {
+    margin-left: -250px;
+  }
+
+  .sidebar.open {
+    margin-left: 0;
+  }
+
+  .content {
+    width: 100%;
+    margin-left: 0;
+  }
+}
+
+/*** Navbar Styles ***/
+/* Sidebar navbar links */
+.sidebar .navbar .navbar-nav .nav-link {
+  padding: 7px 9px;
+  color: var(--dark);
+  font-weight: 500;
+  border-left: 3px solid var(--light);
+  border-radius: 0 30px 30px 0;
+  outline: none;
+}
+
+.sidebar .navbar .navbar-nav .nav-link:hover,
+.sidebar .navbar .navbar-nav .nav-link.active {
+  color: var(--primary);
+  background: #ffffff;
+  border-color: var(--primary);
+}
+
+.sidebar .navbar .navbar-nav .nav-link i {
+  width: 40px;
+  height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #ffffff;
+  border-radius: 40px;
+}
+
+.sidebar .navbar .navbar-nav .nav-link:hover i,
+.sidebar .navbar .navbar-nav .nav-link.active i {
+  background: var(--light);
+}
+
+.sidebar .navbar .dropdown-toggle::after {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  border: none;
+  content: '\f107';
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 900;
+  transition: 0.5s;
+}
+
+.sidebar .navbar .dropdown-toggle[aria-expanded='true']::after {
+  transform: rotate(-180deg);
+}
+
+.sidebar .navbar .dropdown-item {
+  padding-left: 25px;
+  border-radius: 0 30px 30px 0;
+}
+
+/* Content navbar links */
+.content .navbar .navbar-nav .nav-link {
+  margin-left: 25px;
+  padding: 12px 0;
+  color: var(--dark);
+  outline: none;
+}
+
+.content .navbar .navbar-nav .nav-link:hover,
+.content .navbar .navbar-nav .nav-link.active {
+  color: var(--primary);
+}
+
+.content .navbar .sidebar-toggler,
+.content .navbar .navbar-nav .nav-link i {
+  width: 40px;
+  height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #ffffff;
+  border-radius: 40px;
+}
+
+.content .navbar .dropdown-toggle::after {
+  margin-left: 6px;
+  vertical-align: middle;
+  border: none;
+  content: '\f107';
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 900;
+  transition: 0.5s;
+}
+
+.content .navbar .dropdown-toggle[aria-expanded='true']::after {
+  transform: rotate(-180deg);
+}
+
+@media (max-width: 575.98px) {
+  .content .navbar .navbar-nav .nav-link {
+    margin-left: 15px;
+  }
+}
+
+/*** Date Picker ***/
+.bootstrap-datetimepicker-widget.bottom {
+  top: auto !important;
+}
+
+.bootstrap-datetimepicker-widget .table * {
+  border-bottom-width: 0px;
+}
+
+.bootstrap-datetimepicker-widget .table th {
+  font-weight: 500;
+}
+
+.bootstrap-datetimepicker-widget.dropdown-menu {
+  padding: 10px;
+  border-radius: 2px;
+}
+
+.bootstrap-datetimepicker-widget table td.active,
+.bootstrap-datetimepicker-widget table td.active:hover {
+  background: var(--primary);
+}
+
+.bootstrap-datetimepicker-widget table td.today::before {
+  border-bottom-color: var(--primary);
+}
+
+/*** Testimonial Carousel ***/
+.progress .progress-bar {
+  width: 0px;
+  transition: 2s;
+}
+
+.testimonial-carousel .owl-dots {
+  margin-top: 24px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.testimonial-carousel .owl-dot {
+  position: relative;
+  display: inline-block;
+  margin: 0 5px;
+  width: 15px;
+  height: 15px;
+  border: 5px solid var(--primary);
+  border-radius: 15px;
+  transition: 0.5s;
+}
+
+.testimonial-carousel .owl-dot.active {
+  background: var(--dark);
+  border-color: var(--primary);
+}
