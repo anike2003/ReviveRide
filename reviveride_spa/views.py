@@ -1,42 +1,84 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import login,authenticate
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import authenticate, login,logout
+from django.contrib.auth.models import User
 from django.contrib import messages
 
-def signup(request):
-    if request.method == 'POST':
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            user = form.save()
-            email = form.cleaned_data.get('email')
-            messages.success(request, f'Account created for {email}! You can now log in.')
-            login(request, user)  # Automatically log in the user after signup
-            return redirect('login.html')  # Redirect to the dashboard after signup
-    else:
-        form = UserCreationForm()
-    return render(request, 'signup.html', {'form': form})
 
-# Login view
-def login(request):
+
+def Signup(request):
     if request.method == 'POST':
-        email = request.POST['email']
-        password = request.POST['password']
-        user = authenticate(request, email= email, password=password)
-        if user is not None:
-            login(request, user)
-            return redirect('dashboard.html')  # Redirect to the dashboard after login
+        username = request.POST.get('username').strip()
+        email = request.POST.get('email').strip()   
+        password = request.POST.get('password')  
+
+      
+        if User.objects.filter(username=username).exists():
+            messages.error(request, "Username already exists.")
+        elif User.objects.filter(email=email).exists():
+            messages.error(request, "Email already exists.")
         else:
-            messages.error(request, 'Invalid email or password.')
-    return render(request, 'login.html')  # Render your existing login template
+            
+            user = User.objects.create_user(username=username, email=email, password=password)
+            user.save()
+            login(request, user) 
+            messages.success(request, "Signup successful! Welcome!")
+            return redirect('dashboard') 
+
+    return render(request, 'Authentication_page/signup.html') 
 
 
+
+def Login(request):
+    if request.method == 'POST':
+        username = request.POST.get('username').strip() 
+        password = request.POST.get('password') 
+        
+        user = authenticate(request, username=username, password=password)
+        
+        if user is not None:
+            login(request, user) 
+            return redirect('dashboard')  
+        else:
+            messages.error(request, "Incorrect username or password.")
+    return render(request, 'Authentication_page/login.html')
+
+
+def Logout(request):
+    logout(request)  
+    messages.success(request, "You have been logged out successfully.")
+    return redirect('login')
+
+
+def Create_new_password(request):
+     
+    return render(request, 'Authentication_page/create_new_password.html' )
+
+def Password_successful(request):
+    return render(request, 'Authentication_page/password_successful.html' )
+
+def Forgot_password(request):
+    return render(request, 'Authentication_page/forgotPassword.html' )
 
 def Dashboard(request):
     return render(request, 'dashboard.html' )
 
-def Create_new_password(request):
-     
-    return render(request, 'create_new_password.html' )
+def CreateID(request):
+    return render(request, 'createID.html' )
 
-def Password_successful(request):
-    return render(request, 'password_successful.html' )
+def Feedback(request):
+    return render(request, 'feedback.html' )
+
+def Chatbox(request):
+    return render(request, 'chatbox.html' )
+
+def LocationFinder(request):
+    return render(request, 'locationFinder.html' )
+
+def Service(request):
+    return render(request, 'service.html' )
+
+def Notification(request):
+    return render(request, 'notification.html' )
+
+def Payment(request):
+    return render(request, 'payment.html' )
