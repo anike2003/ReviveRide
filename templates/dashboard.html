@@ -26,6 +26,26 @@
 
     <!-- Template Stylesheet -->
     <link href="{% static 'css/style.css' %}" rel="stylesheet">
+
+
+    <style>
+        #notification-icon {
+            position: relative;
+            display: inline-block;
+          }
+          
+          .notification-badge {
+            position: absolute;
+            top: -4px;
+            right: -1.5px;
+            background-color: red;
+            color: white;
+            border-radius: 50%;
+            padding: 7px;
+            font-size: 12px;
+            margin-top: 7px;
+          }
+    </style>
 </head>
 
 <body>
@@ -39,8 +59,7 @@
         </div>
         <!-- Spinner End -->
 
-        <!-- Sidebar Start -->
-        <div class="sidebar pe-4 pb-3">
+        <!-- Sidebar Start --> <div class="sidebar pe-4 pb-3">
             <nav class="navbar bg-light navbar-light">
                 <div class="d-flex align-items-center ms-4 mb-4">
                     <div class="position-relative">
@@ -48,9 +67,9 @@
                     </div>
                 </div>
                 <div class="navbar-nav w-100">
-                    <a href="{% url 'dashboard' %}" class="nav-item nav-link" style="font-size: 21px;"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</b></a>
+                    <a href="{% url 'dashboard' %}" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
                     <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" style="font-size: 21px;"><i class="fa fa-calendar-alt me-2"></i>Authentication</b></a>
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-calendar-alt me-2"></i>Authentication</a>
                         <div class="dropdown-menu bg-transparent border-0">
                             <a href="{% url 'login' %}" class="dropdown-item">Login</a>
                             <a href="{% url 'signup' %}" class="dropdown-item">Register</a>
@@ -59,19 +78,19 @@
                         </div>
                     </div>
                     <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" style="font-size: 21px;"><i class="fa fa-cogs me-2"></i>Service Option</b></a>
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-cogs me-2"></i>Service Option</a>
                         <div class="dropdown-menu bg-transparent border-0">
                             <a href="{% url 'feedback' %}" class="dropdown-item">Customer Feedback</a>
                             <a href="{% url 'chatbox' %}" class="dropdown-item">Customer Chatbox</a>
                         </div>
                     </div>
-                    <a href="{% url 'locationFinder' %}" class="nav-item nav-link" style="font-size: 21px;"><i class="fa fa-map-marker-alt me-2"></i>Location Finder</b></a>
-                    <a href="{% url 'service' %}" class="nav-item nav-link" style="font-size: 21px;"><i class="fa fa-receipt me-2"></i>Transaction History</b></a>
+                    <a href="{% url 'locationFinder' %}" class="nav-item nav-link"><i class="fa fa-map-marker-alt me-2"></i>Location Finder</a>
+                    <a href="{% url 'service' %}" class="nav-item nav-link"><i class="fa fa-receipt me-2"></i>Transaction History</a>
                     <div class="nav-item dropdown">
-                        <a href="{% url 'notification' %}" class="nav-link" style="font-size: 21px;"><i class="fa fa-bell me-2"></i>Notification</b></a>
+                        <a href="{% url 'notification' %}" class="nav-link"><i class="fa fa-bell me-2"></i>Notification</a>
                     </div>
                     <div class="nav-item">
-                        <a href="{% url 'payment' %}" class="nav-link" style="font-size: 21px;"><i class="fa fa-credit-card me-2"></i>Payment</b></a>
+                        <a href="{% url 'payment' %}" class="nav-link"><i class="fa fa-credit-card me-2"></i>Payment</a>
                     </div>
                 </div>
             </nav>
@@ -113,11 +132,14 @@
                     </div>
 
                     <!-- Notification Icon -->
+                   
                     <div class="nav-item dropdown me-3">
-                        <a href="#" class="nav-link" data-bs-toggle="dropdown">
-                            <i class="fa fa-bell me-lg-2" title="Notification"></i>
+                        <a href="{% url 'notification' %}" class="nav-link" id="notification-icon" aria-label="Notifications">
+    <i class="fa fa-bell me-lg-2" title="Notification"></i>
+    {% if unread_count > 0 %}
+        <span class="notification-badge">{{ unread_count }}</span> <!-- Show unread count -->
+    {% endif %}
                         </a>
-                        <!-- Optional dropdown menu for notifications -->
                     </div>
 
                     <div class="nav-item dropdown me-3">
@@ -170,7 +192,7 @@
                     <div class="col-12">
                         {%if user.is_authenticated%}
                           <center><h4>Welcome to ReviveRide Spa, {{user.username}}.</h4></center>
-                          <marquee> <h4 class="bold" style="color: blue;"> Dear esteemed customer, all payments must be processed through this application.</h3></marquee>
+                          <marquee> <h5 class="bold" style="color: blue;"> Dear esteemed customer, all payments must be processed through this application.</h3></marquee>
                           {%else%}
                            <marquee> <h3 class="bold" style="color: blue;">
                              Dear esteemed customer, all payments must be processed through this application.</h3></marquee>

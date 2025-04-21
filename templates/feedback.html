@@ -43,48 +43,40 @@
         <!-- Sidebar Start -->
         <div class="sidebar pe-4 pb-3">
             <nav class="navbar bg-light navbar-light">
-
-                <div class="d-flex align-items-center ms-4 mb-4 mt-5">
+                <div class="d-flex align-items-center ms-4 mb-4">
                     <div class="position-relative">
-                        <a href="landingPage.html"><img class="rounded-circle img-fluid" src="img/logo_img.png" alt=""
-                                style="max-width: 70px; height: auto;"></a>
-                        <h5 class="mt-2">ReviveRide Spa</h5>
+                        <!-- Logo can be added here -->
                     </div>
                 </div>
                 <div class="navbar-nav w-100">
-                    <a href="index.html" class="nav-item nav-link"><i
-                            class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
+                    <a href="{% url 'dashboard' %}" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
                     <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
-                                class="fa fa-calendar-alt me-2"></i>Authentication</a>
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-calendar-alt me-2"></i>Authentication</a>
                         <div class="dropdown-menu bg-transparent border-0">
-                            <a href="signin.html" class="dropdown-item">Login</a>
-                            <a href="signup.html" class="dropdown-item">Sign Up</a>
-                            <a href="createID.html" class="dropdown-item">Create an ID</a>
-                            <a href="forgotPassword.html" class="dropdown-item">Forgot Password</a>
+                            <a href="{% url 'login' %}" class="dropdown-item">Login</a>
+                            <a href="{% url 'signup' %}" class="dropdown-item">Register</a>
+                            <a href="{% url 'createID' %}" class="dropdown-item">Create an ID</a>
+                            <a href="{% url 'forgot_password' %}" class="dropdown-item">Forgot Password</a>
                         </div>
                     </div>
                     <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
-                                class="fa fa-cogs me-2"></i>Service Option</a>
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-cogs me-2"></i>Service Option</a>
                         <div class="dropdown-menu bg-transparent border-0">
-                            <a href="feedback.html" class="dropdown-item">Customer Feedback</a>
-                            <a href="chatbox.html" class="dropdown-item">Customer Chatbox</a>
+                            <a href="{% url 'feedback' %}" class="dropdown-item">Customer Feedback</a>
+                            <a href="{% url 'chatbox' %}" class="dropdown-item">Customer Chatbox</a>
                         </div>
                     </div>
-                    <!-- <a href="form.html" class="nav-item nav-link"><i class="fa fa-credit-card me-2"></i>Service</a> -->
-                    <a href="locationFinder.html" class="nav-item nav-link"><i
-                            class="fa fa-map-marker-alt me-2"></i>Location
-                        Finder</a>
-                    <a href="service.html" class="nav-item nav-link"><i class="fa fa-receipt me-2"></i>Transaction
-                        History</a>
+                    <a href="{% url 'locationFinder' %}" class="nav-item nav-link"><i class="fa fa-map-marker-alt me-2"></i>Location Finder</a>
+                    <a href="{% url 'service' %}" class="nav-item nav-link"><i class="fa fa-receipt me-2"></i>Transaction History</a>
                     <div class="nav-item dropdown">
-                        <a href="notification.html" class="nav-link"><i class="fa fa-bell me-2"></i>Notification</a>
-
+                        <a href="{% url 'notification' %}" class="nav-link"><i class="fa fa-bell me-2"></i>Notification</a>
+                    </div>
+                    <div class="nav-item">
+                        <a href="{% url 'payment' %}" class="nav-link"><i class="fa fa-credit-card me-2"></i>Payment</a>
                     </div>
                 </div>
+            </nav>
         </div>
-        </nav>
         <!-- Sidebar End -->
 
 
@@ -134,9 +126,10 @@
 
                     <!-- Notification Icon -->
                     <div class="nav-item dropdown me-3">
-                        <a href="#" class="nav-link" data-bs-toggle="dropdown">
-                            <i class="fa fa-bell me-lg-2"></i>
+                        <a href="{% url 'notification' %}" class="nav-link"  aria-label="Notifications">
+                            <i class="fa fa-bell me-lg-2" title="Notification"></i>
                         </a>
+                    </div>
                         <!-- Optional dropdown menu for notifications -->
                     </div>
 
