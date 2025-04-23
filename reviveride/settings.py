@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-z)=xp17909_1)#@i#t&)lvgpi$iazxa-jp*%m&xhqkuyyl9mtd
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
+LOGIN_URL = '/login/'
 
 # Application definition
 
@@ -38,9 +38,16 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'reviveride_spa'
+    'reviveride_spa',
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
+    'allauth.socialaccount.providers.apple',
     
 ]
+SITE_ID = 1
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -50,6 +57,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'allauth.account.middleware.AccountMiddleware',
+
 ]
 
 ROOT_URLCONF = 'reviveride.urls'
@@ -126,8 +135,28 @@ STATICFILES_DIRS = (os.path.join(BASE_DIR,'static'),)
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# CHANNEL_LAYERS = {
-#     "default": {
-#         "BACKEND": "channels.layers.InMemoryChannelLayer"
-#     }
-# }
+# Email Backend
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'localhost'
+EMAIL_PORT = 1025
+EMAIL_USE_TLS = False
+EMAIL_USE_SSL = False
+EMAIL_HOST_USER = None
+EMAIL_HOST_PASSWORD = None
+DEFAULT_FROM_EMAIL = 'no-reply@reviveride.local'
+
+
+# mailhog localhost- http://127.0.0.1:8025/
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
+
+LOGIN_REDIRECT_URL = '/'
+ACCOUNT_LOGOUT_REDIRECT_URL = '/'
+
+ACCOUNT_LOGIN_METHODS = {'email', 'username'}  
+ACCOUNT_SIGNUP_FIELDS = ['email*', 'password1*', 'password2*'] 
+
+SOCIALACCOUNT_QUERY_EMAIL = True

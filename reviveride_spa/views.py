@@ -1,15 +1,25 @@
+# Django imports
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import Http404
-from django.contrib.auth import authenticate, login,logout
+from django.http import Http404, JsonResponse,HttpResponse
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from django.contrib import messages
-from .models import Notification
-from django.contrib.auth.decorators import login_required
-from django.http import JsonResponse
+from django.contrib.auth.forms import PasswordChangeForm
+# from django.contrib.auth.tokens import default_token_generator as token_generator
+from django.core.mail import send_mail
+from django.conf import settings
+from .token import token_generator
 from django.views.decorators.csrf import csrf_exempt
+from django.core.exceptions import ValidationError
+from django.contrib.auth.decorators import login_required
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.utils.encoding import force_bytes, force_str
+from django.urls import reverse
 
-
-
+# Local imports
+from .models import Notification
+from .token import token_generator
 
 
 
@@ -36,10 +46,10 @@ def Signup(request):
 
 
 
-def Login(request):
+def Login(request): 
     if request.method == 'POST':
-        username = request.POST.get('username').strip() 
-        password = request.POST.get('password') 
+        username = request.POST.get('username').strip()
+        password = request.POST.get('password')
         
         user = authenticate(request, username=username, password=password)
         
@@ -48,6 +58,7 @@ def Login(request):
             return redirect('dashboard')  
         else:
             messages.error(request, "Incorrect username or password.")
+    
     return render(request, 'Authentication_page/login.html')
 
 
@@ -64,8 +75,89 @@ def Password_successful(request):
     return render(request, 'Authentication_page/password_successful.html' )
 
 def Forgot_password(request):
-    return render(request, 'Authentication_page/forgotPassword.html' )
-@login_required
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        if User.objects.filter(email=email).exists():
+            user = User.objects.get(email=email)
+            token = token_generator.make_token(user)
+            uid = urlsafe_base64_encode(force_bytes(user.pk))
+            reset_url = request.build_absolute_uri(reverse('reset_password', kwargs={
+                'uidb64': uid,
+                'token': token
+            }))
+
+            send_mail(
+                'Password Reset Link',
+                f'Click the link to reset your password:\n{reset_url}',
+                settings.EMAIL_HOST_USER,
+                [email],
+                fail_silently=False,
+            )
+
+            return render(request, 'Authentication_page/password_reset_done.html')
+        else:
+            error_message = "Email not found."
+            return render(request, 'Authentication_page/forgotPassword.html', {'error_message': error_message})
+
+    return render(request, 'Authentication_page/forgotPassword.html')
+
+
+def Reset_password(request, uidb64, token):
+    if request.method == 'POST':
+        # Get new password and confirm password from POST data
+        new_password = request.POST.get('new_password')
+        confirm_password = request.POST.get('confirm_password')
+
+        # Check if the passwords match
+        if new_password != confirm_password:
+            error_message = "Passwords do not match."
+            return render(request, 'Authentication_page/resetPassword.html', {
+                'error_message': error_message,
+                'uidb64': uidb64,
+                'token': token
+            })
+
+        try:
+            # Decode the user ID
+            uid = force_str(urlsafe_base64_decode(uidb64))
+            user = get_user_model().objects.get(pk=uid)
+
+            # Check if the token is valid
+            if token_generator.check_token(user, token):
+                # Set the new password and save the user
+                user.set_password(new_password)
+                user.save()
+
+                # Optional: You can log the user in automatically after a successful reset.
+                # Authenticate the user using the new password
+                user = authenticate(request, username=user.username, password=new_password)
+                if user is not None:
+                    login(request, user)
+
+                return render(request, 'Authentication_page/password_successful.html')
+            else:
+                error_message = "Token is invalid or expired."
+                return render(request, 'Authentication_page/password_reset_confirm.html', {
+                    'error_message': error_message,
+                    'uidb64': uidb64,
+                    'token': token
+                })
+
+        except (TypeError, ValueError, OverflowError, get_user_model().DoesNotExist):
+            error_message = "User not found or invalid data."
+            return render(request, 'Authentication_page/password_reset_confirm.html', {
+                'error_message': error_message,
+                'uidb64': uidb64,
+                'token': token
+            })
+
+    # If GET request, show the reset password form
+    return render(request, 'Authentication_page/resetPassword.html', {
+        'uidb64': uidb64,
+        'token': token
+    })
+
+
 def Dashboard(request):
     notifications = Notification.objects.filter(user=request.user)
     unread_count = notifications.filter(is_read=False).count()
@@ -73,7 +165,6 @@ def Dashboard(request):
 
 def booking_view(request):
     if request.method == 'POST':
-        # Handle the booking logic
         Notification.objects.create(
             user=request.user,
             message='Your booking has been confirmed.',
@@ -83,11 +174,8 @@ def booking_view(request):
 
 @login_required
 def Notifications(request):
-    # Fetch all notifications for the current user, ordered by created_at
     search_query = request.GET.get('search', '')
     notifications = Notification.objects.filter(user=request.user).order_by('-created_at')
-    
-    # Count the number of unread notifications
     unread_count = notifications.filter(is_read=False).count()
     if search_query:
         notifications = notifications.filter(
@@ -118,24 +206,7 @@ def mark_as_read(request, notification_id):
         notification.save()
         return JsonResponse({'status': 'success'})
     return JsonResponse({'status': 'fail'}, status=400)
-# def mark_as_read(request, notification_id):
-#     notification = get_object_or_404(Notification, id=notification_id)
-#     notification.is_read = True
-#     notification.save()
-#     return redirect('notification')
 
-# @login_required
-# def delete_notification(request, notification_id):
-#     try:
-#         notification = get_object_or_404(Notification, id=notification_id, user=request.user)
-#     except Http404:
-#         print(f"Notification with ID {notification_id} does not exist for user {request.user.id}.")
-#         raise  # Re-raise the exception after logging
-#     if request.method == 'POST':
-#         # notification = Notification.objects.get(id=notification_id)
-#         notification.delete()
-#         return redirect('notification')
-#     return render(request, 'notification/delete_notification.html', {'notification': notification})
 @login_required
 def delete_notification(request, notification_id):
     notification = get_object_or_404(Notification, id=notification_id)
@@ -166,9 +237,6 @@ def LocationFinder(request):
 
 def Service(request):
     return render(request, 'service.html' )
-
-# def Notification(request):
-#     return render(request, 'notification.html' )
 
 def Payment(request):
     return render(request, 'payment.html' )

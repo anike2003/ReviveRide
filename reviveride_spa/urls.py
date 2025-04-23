@@ -8,6 +8,7 @@ urlpatterns = [
     path('signup/', views.Signup,name='signup'),
     path('create_new_password/', views.Create_new_password,name='create_new_password'),
     path('forgot_password/', views.Forgot_password,name='forgot_password'),
+    path('reset_password/<uidb64>/<token>/reset_password', views.Reset_password,name='reset_password'),
     path('dashboard/', views.Dashboard,name='dashboard'),
     path('password_successful/', views.Password_successful,name='password_successful'),
     path('createID/', views.CreateID,name='createID'),
