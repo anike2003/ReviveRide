@@ -5,6 +5,41 @@
   --dark: #191c24;
 }
 
+.bg-gradient-white-blue {
+  background: linear-gradient(
+    to bottom,
+    #ffffff,
+    #e0f0ff
+  ); /* soft white to blue gradient */
+}
+.bg-gradient-white-green {
+  background: linear-gradient(
+    to bottom,
+    #ffffff,
+    #d4f8e8
+  ); /* white to light green */
+}
+
+.btn-gradient {
+  background: linear-gradient(
+    to right,
+    #3b9e5d,
+    #64d284
+  ); /* A green gradient */
+  border: none;
+  color: white;
+  transition: all 0.3s ease;
+}
+
+.btn-gradient:hover {
+  background: linear-gradient(
+    to right,
+    #64d284,
+    #3b9e5d
+  ); /* Reverse gradient on hover */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
 /*** Global Utilities ***/
 .back-to-top {
   position: fixed;
@@ -181,42 +216,37 @@
 }
 
 /*** Custom Card ***/
-.custom-card {
+.hero {
+  position: relative;
   width: 100%;
-  max-width: 100%;
-}
-
-/*** Hero Section & Signup Form ***/
-.hero-section {
   height: 100vh;
   display: flex;
-  flex-wrap: wrap;
+  align-items: center;
 }
 
-.hero {
-  background: url('../img/car-1281640_1280.jpg') no-repeat center center/cover;
-  position: relative;
-  color: white;
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 2rem;
+.video-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  min-width: 100%;
+  min-height: 100%;
+  object-fit: cover;
+  z-index: 0;
 }
 
 .overlay {
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 1;
 }
 
 .hero-content {
   position: relative;
-  z-index: 1;
+  z-index: 2;
 }
 
 .signup-container {
@@ -282,10 +312,6 @@
     font-size: 0.9rem;
   }
 
-  .signup-card {
-    max-width: 300px;
-  }
-
   .logo-img {
     width: 50px;
   }
@@ -309,11 +335,6 @@
     font-weight: bold;
     font-size: 1.5rem;
   }
-
-  .custom-card {
-    width: 100%;
-    max-width: 100%;
-  }
 }
 
 @media (max-width: 576px) {
@@ -323,11 +344,6 @@
 
   .hero-content p {
     font-size: 0.8rem;
-  }
-
-  .signup-card {
-    max-width: 100%;
-    margin-top: 80px;
   }
 
   .logo-img {
@@ -361,6 +377,8 @@
     margin-left: 0;
   }
 }
+
+/* Sign Card */
 
 @media (max-width: 991.98px) {
   .sidebar {
