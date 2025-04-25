@@ -1,0 +1,47 @@
+{% extends 'notification.html' %}
+
+{% block content %}
+<div class="container">
+    <h2 class="my-4">Notifications</h2>
+
+    {% if new_notification %}
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>New Notification!</strong> {{ new_notification.message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endif %}
+
+    <div class="notification-list" id="notificationList">
+        {% for notification in notifications %}
+        <div class="notification {% if not notification.is_read %}unread{% else %}read{% endif %}" onclick="showDetails('{{ notification.message }}')">
+            <div>
+                <span class="notification-title">{{ notification.title }}</span>
+                <div class="timestamp">{{ notification.created_at|date:'Y-m-d H:i A' }}</div>
+            </div>
+            <div class="icon-container">
+                {% if not notification.is_read %}
+                <a href="{% url 'mark_as_read' notification.id %}" class="icon">
+                    <i class="fa fa-envelope" aria-hidden="true" title="Mark as Read"></i>
+                </a>
+                {% else %}
+                <a href="{% url 'mark_as_read' notification.id %}" class="icon">
+                    <i class="fa fa-envelope-open" aria-hidden="true" title="Mark as Unread"></i>
+                </a>
+                {% endif %}
+                <a href="{% url 'delete_notification' notification.id %}" class="icon">
+                    <i class="fa fa-trash" aria-hidden="true" title="Delete"></i>
+                </a>
+            </div>
+        </div>
+        {% empty %}
+        <p>No notifications found.</p>
+        {% endfor %}
+    </div>
+</div>
+
+<script>
+    function showDetails(message) {
+        alert(message); // Replace with a modal or detailed view as needed
+    }
+</script>
+{% endblock %}

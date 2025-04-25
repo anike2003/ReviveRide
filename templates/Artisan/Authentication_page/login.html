@@ -41,12 +41,16 @@
             </div>
         </div>
         <!-- Spinner End -->
-
+        <div class="col-md-6 d-none d-md-flex align-items-center justify-content-center p-5">
+            <img src="{% static 'img/undraw_sign-up_z2ku.svg' %}" alt="Login Illustration" class="img-fluid"
+                style="max-height: 500px;">
+    </div>
 
         <!-- Sign Up Start -->
         <div class="d-flex flex-column align-items-center">
+            
             <img src="{% static 'img/logo_img.png' %}" alt="Logo" class="mb-3" width="70">
-            <h5 class="text-center mb-4">ReviveRide</h5>
+            <h5 class="text-center mb-4">ReviveRide Spa</h5>
 
             <div class="card bg-white p-4 rounded-6" style="width: 400px;">
                 <h5 class="text-center my-3"><a href="{%url 'login' %}">Login to your account?</a></h5>
@@ -89,15 +93,19 @@
                         Apple
                     </button> -->
                     <a href="{% provider_login_url 'google' %}" class="btn btn-danger w-100 mb-2">
-                        <i class="fab fa-google me-2"></i> Login with Google
+                        <i class="fab fa-google me-2"></i> Google
                     </a>
                     
                 </div>
                 <p class="text-center mt-3">Don't have an account? <a href="{% url 'signup' %}">Signup</a></p>
+            <!-- Right Image Section -->
+        
             </div>
-        </div>
+            </div>
+            
         <!-- Sign Up End -->
-    </div>
+         </div>
+    
 
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>

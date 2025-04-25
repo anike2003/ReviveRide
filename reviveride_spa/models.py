@@ -11,3 +11,17 @@ class Notification(models.Model):
 
     def __str__(self):
         return f"{self.title} - {'Read' if self.is_read else 'Unread'}"
+
+
+
+def user_directory_path(instance, filename):
+    return f'user_{instance.user.id}/{filename}'
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    profile_image = models.ImageField(upload_to=user_directory_path, default='default.jpg')
+
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f'{self.user.username} Profile'

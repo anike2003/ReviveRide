@@ -1,0 +1,358 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>ReviveRide Spa - Notification</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <!-- Google Web Fonts -->
+    <link rel="shortcut icon" type="image/png" href="{% static 'img/logo_img.png' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Heebo', sans-serif;
+        }
+
+        .card {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+        }
+
+        .notification {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .notification:hover {
+            background-color: #f1f1f1;
+        }
+
+        .notification:last-child {
+            border-bottom: none;
+        }
+
+        .notification.read {
+            background-color: #e9ecef;
+        }
+
+        .notification-title {
+            font-weight: bold;
+        }
+
+        .timestamp {
+            font-size: 0.85em;
+            color: gray;
+        }
+
+        .search-bar {
+            margin: 20px 0;
+        }
+
+        .icon-container1 {
+            display: flex;
+            gap: 10px;
+        }
+
+        .icon {
+            color: black;
+        }
+        .notification {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 20px;
+            margin: 5px 0;
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        .notification.unread {
+            background-color: #f9f9f9; /* Light background for unread notifications */
+        }
+        
+        .notification.read {
+            background-color: #e0e0e0; /* Darker background for read notifications */
+        }
+        
+        .notification-content h5 {
+            margin: 0;
+        }
+        
+        .notification-content p {
+            margin: 5px 0 0;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+        }
+        .card {
+            width: 1000px;
+            background-color: #F0F0F0;
+            padding: 30px;
+            margin: 60px auto;
+            border-radius: 30px;
+            box-shadow: 5px 5px 5px grey;
+        }
+       
+        .card h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .card p {
+            margin: 10px 0;
+        }
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            text-decoration: none;
+            color: #007BFF;
+            font-weight: bold;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        #notification-icon {
+            position: relative;
+            display: inline-block;
+          }
+          
+          .notification-badge {
+            position: absolute;
+            top: -4px;
+            right: -1.5px;
+            background-color: red;
+            color: white;
+            border-radius: 50%;
+            padding: 7px;
+            font-size: 12px;
+            margin-top: 7px;
+          }
+          .status-timestamp-container {
+            display: flex;
+            justify-content: space-between; /* Pushes status to the right */
+            align-items: center; /* Vertically center the items */
+            font-size: 14px;
+            margin-top: 10px; /* Optional, to add some spacing between content and the status/timestamp */
+        }
+        
+        .timestamp {
+            margin-left: 10px; /* Optional, to give some space between the status and the timestamp */
+        }
+        
+        .search-form {
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .search-form input {
+            padding: 8px 12px;
+            font-size: 16px;
+            width: 700px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        
+        .search-form button {
+            padding: 8px 12px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        .search-form button:hover {
+            background-color: #45a049;
+        }
+        
+    </style>
+</head>
+
+<body>
+    <div class="container-xxl position-relative bg-white d-flex p-0">
+        <!-- Sidebar Start -->
+        <div class="sidebar pe-4 pb-3">
+            <nav class="navbar bg-light navbar-light">
+                <div class="d-flex align-items-center ms-4 mb-4">
+                    <div class="position-relative">
+                        <!-- Logo can be added here -->
+                    </div>
+                </div>
+                <div class="navbar-nav w-100">
+                    <a href="{% url 'dashboard' %}" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-calendar-alt me-2"></i>Authentication</a>
+                        <div class="dropdown-menu bg-transparent border-0">
+                            <a href="{% url 'login' %}" class="dropdown-item">Login</a>
+                            <a href="{% url 'signup' %}" class="dropdown-item">Register</a>
+                            <a href="{% url 'createID' %}" class="dropdown-item">Create an ID</a>
+                            <a href="{% url 'forgot_password' %}" class="dropdown-item">Forgot Password</a>
+                        </div>
+                    </div>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-cogs me-2"></i>Service Option</a>
+                        <div class="dropdown-menu bg-transparent border-0">
+                            <a href="{% url 'feedback' %}" class="dropdown-item">Customer Feedback</a>
+                            <a href="{% url 'chatbox' %}" class="dropdown-item">Customer Chatbox</a>
+                        </div>
+                    </div>
+                    <a href="{% url 'locationFinder' %}" class="nav-item nav-link"><i class="fa fa-map-marker-alt me-2"></i>Location Finder</a>
+                    <a href="{% url 'service' %}" class="nav-item nav-link"><i class="fa fa-receipt me-2"></i>Transaction History</a>
+                    <div class="nav-item dropdown">
+                        <a href="{% url 'notification' %}" class="nav-link"><i class="fa fa-bell me-2"></i>Notification</a>
+                    </div>
+                    <div class="nav-item">
+                        <a href="{% url 'payment' %}" class="nav-link"><i class="fa fa-credit-card me-2"></i>Payment</a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+        <!-- Sidebar End -->
+
+        <!-- Content Start -->
+        <div class="content">
+            <!-- Navbar Start -->
+            <nav class="navbar navbar-expand bg-light navbar-light sticky-top px-4 py-0">
+                <a href="#" class="sidebar-toggler flex-shrink-0 me-3">
+                    <i class="fa fa-bars"></i>
+                </a>
+                <a href="{% url 'dashboard' %}" class="navbar-brand d-none d-lg-flex align-items-center me-4"></a>
+                <a href="{% url 'dashboard' %}" class="navbar-brand d-flex d-lg-none me-4"></a>
+                <div class="d-none d-lg-block ms-3">
+                    <span style="color: black; font-size: 13px;"><b style="font-size: 20px;">ReviveRide Spa</b></span>
+                </div>
+
+                <!-- SEARCH BAR -->
+                <form class="d-none d-md-flex ms-auto me-4" style="width: 400px; position: relative;">
+                    <input class="form-control border-0 ps-5" type="search" placeholder="Search..." style="width: 100%;">
+                    <i class="fa fa-search" style="position: absolute; top: 50%; left: 15px; transform: translateY(-50%); color: gray;"></i>
+                </form>
+
+                <!-- NAV RIGHT ICONS -->
+                <div class="navbar-nav align-items-center">
+                    <div class="nav-item dropdown me-3">
+                        <a href="#" class="nav-link" data-bs-toggle="dropdown" aria-label="Messages">
+                            <i class="fa fa-envelope me-lg-2" title="messages"></i>
+                        </a>
+                    </div>
+
+                    <div class="nav-item dropdown me-3">
+                        <a href="{% url 'notification' %}" class="nav-link" id="notification-icon" aria-label="Notifications">
+    <i class="fa fa-bell me-lg-2" title="Notification"></i>
+    {% if unread_count > 0 %}
+        <span class="notification-badge">{{ unread_count }}</span> <!-- Show unread count -->
+    {% endif %}
+</a>
+
+                        </a>
+                    </div>
+
+                    <div class="nav-item dropdown me-3">
+                        <a href="{% url 'logout' %}" class="nav-link" title="Logout" aria-label="Logout">
+                            <i class="bi bi-box-arrow-right"></i>
+                        </a>
+                    </div>
+
+                    <div class="nav-item dropdown me-3">
+                        <a href="#" class="nav-link d-flex align-items-center" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img class="rounded-circle me-2" src="https://www.w3schools.com/howto/img_avatar.png" alt="Default Profile Picture" style="width: 30px; height: 30px;">
+                            <div class="d-none d-lg-flex flex-column" style="color: white;">
+                                <span style="font-size: 13px;">Profile</span>
+                            </div>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#">View Profile</a></li>
+                            <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            <!-- Navbar End -->
+
+            <div class="container">
+                <h2 class="my-4">Notifications</h2>
+                <form method="get" action="{% url 'notification' %}" class="search-form">
+                    <input type="text" name="search" placeholder="Search notifications..." value="{{ search_query }}">
+                    <button type="submit">Search</button>
+                </form>
+                {% if new_notification %}
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <strong>New Notification!</strong> {{ new_notification.message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                {% endif %}
+                <div class="row">
+                    <div class="leftcolumn">
+                        <div class="card">
+                            <div class="notification-list">
+                                {% if notifications %}
+                                    {% for notification in notifications %}
+                                        <a href="{% url 'notification_detail' pk=notification.pk %}" style="text-decoration: none; color: black;">
+                                            <div class="notification-content {% if not notification.is_read %}unread{% else %}read{% endif %}">
+                                                <h5 class="notification-title" style="font-family:'Lato', sans-serif;">{{ notification.title }}</h5>
+                                                <h6 class="notification-content" style="font-weight: normal; font-family:firacode;">
+                                                    {{ notification.message|truncatewords:5 }}
+                                                </h6>
+                                                <div class="status-timestamp-container d-flex justify-content-between align-items-center mt-2">
+                                                    <p class="mb-0"><strong>Status:</strong> {% if notification.is_read %}Read{% else %}Unread{% endif %}</p>
+                                                    <div class="timestamp text-muted">{{ notification.created_at|date:'Y-m-d H:i A' }}</div>
+                                                </div>
+                                            </div>
+                                        </a>
+                                        <hr>
+                                    {% endfor %}
+                                {% else %}
+                                    {% if search_query %}
+                                        <p>No notifications found for "{{ search_query }}".</p>
+                                    {% else %}
+                                        <p>No notifications found.</p>
+                                    {% endif %}
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+               
+                
+                </div>
+                
+            </div>
+        </div>
+        <!-- Content End -->
+    </div>
+
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    
+</body>
+
+</html>

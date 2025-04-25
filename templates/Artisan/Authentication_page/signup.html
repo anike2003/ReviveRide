@@ -1,10 +1,11 @@
 {%load static%}
+{% load socialaccount %}
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="utf-8">
-    <title>ReviveRide -Home</title>
+    <title>ReviveRide Spa -Signup</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
     <!-- Google Web Fonts -->
@@ -38,6 +39,7 @@
             </div>
         </div>
         <!-- Spinner End -->
+         
 
         <!-- Hero -->
         <div class="hero-section">
@@ -47,7 +49,7 @@
                 <div class="container hero-content">
                     <h1 class="display-4 fw-bold text-primary">Get Your Car Delivered to Your Doorstep!</h1>
                     <p class="lead">Fast, affordable, and eco-friendly car services.</p>
-                    <a href="{% url 'signup' %}" class="btn btn-primary btn-lg">Book Now</a>
+                    <a href="{% url 'signup' %}" class="btn btn-primary btn-lg">Signup Now</a>
                 </div>
             </section>
 
@@ -55,7 +57,7 @@
             <div class="signup-container">
                 <div class="text-center signup-card">
                     <img src="{% static 'img/logo_img.png'%}" alt="Logo" class="mb-3 logo-img">
-                    <h5 class="mb-4 d-none d-md-block">ReviveRide</h5>
+                    <h5 class="mb-4 d-none d-md-block">ReviveRide Spa</h5>
 
                     <div class="card bg-white p-4 rounded-4">
                         <h5 class="text-center my-3">Signup Now</h5>
@@ -83,16 +85,9 @@
 
                         <a href="#" class="text-center mt-3 d-block">Or login with</a>
                         <div class="d-flex justify-content-between mt-2">
-                            <button class="btn btn-light w-50 me-2 d-flex align-items-center justify-content-center">
-                                <img src="{% static 'img/google_icon.png'%}" alt="Google Logo" style="width: 20px; height: 20px;"
-                                    class="me-2">
-                                Google
-                            </button>
-                            <button class="btn btn-light w-50 d-flex align-items-center justify-content-center">
-                                <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg"
-                                    alt="Apple Logo" style="width: 20px; height: 20px;" class="me-2">
-                                Apple
-                            </button>
+                            <a href="{% provider_login_url 'google' %}" class="btn btn-danger w-100 mb-2">
+                                <i class="fab fa-google me-2"></i>Google
+                            </a>
                         </div>
 
                         <p class="text-center mt-3">Already have an account? <a href="{% url 'login' %}">Login</a></p>

@@ -16,12 +16,15 @@ from django.contrib.auth.decorators import login_required
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes, force_str
 from django.urls import reverse
+from .forms import CombinedProfileForm
 
 # Local imports
-from .models import Notification
+from .models import Notification,Profile
 from .token import token_generator
 
 
+def Home(request):
+    return redirect('dashboard')
 
 def Signup(request):
     if request.method == 'POST':
@@ -42,7 +45,7 @@ def Signup(request):
             messages.success(request, "Signup successful! Welcome!")
             return redirect('login') 
 
-    return render(request, 'Authentication_page/signup.html') 
+    return render(request, 'Car_owners/Authentication_page/signup.html') 
 
 
 
@@ -59,7 +62,7 @@ def Login(request):
         else:
             messages.error(request, "Incorrect username or password.")
     
-    return render(request, 'Authentication_page/login.html')
+    return render(request, 'Car_owners/Authentication_page/login.html')
 
 
 def Logout(request):
@@ -67,12 +70,42 @@ def Logout(request):
     messages.success(request, "You have been logged out successfully.")
     return redirect('login')
     
+@login_required
+def profile_view(request):
+    # Get or create the user's profile
+    profile, created = Profile.objects.get_or_create(user=request.user)
+
+    if request.method == 'POST':
+        form = CombinedProfileForm(request.POST, request.FILES, user=request.user)  # Pass user instead of instance
+        if form.is_valid():
+            form.save()  # Save the form data
+            return redirect('profile')  # Replace with your profile view name
+    else:
+        form = CombinedProfileForm(user=request.user)  # Pass user here
+
+    return render(request, 'Car_owners/profile.html', {'form': form, 'profile': profile})
+
+@login_required
+def edit_profile(request):
+    profile, created = Profile.objects.get_or_create(user=request.user)
+
+    if request.method == 'POST':
+        form = CombinedProfileForm(request.POST, request.FILES, user=request.user) 
+        if form.is_valid():
+            form.save()  
+            return redirect('profile')  
+    else:
+        form = CombinedProfileForm(user=request.user) 
+
+    return render(request, 'Car_owners/edit_profile.html', {'form': form})
+
+
 def Create_new_password(request):
      
     return render(request, 'Authentication_page/create_new_password.html' )
 
 def Password_successful(request):
-    return render(request, 'Authentication_page/password_successful.html' )
+    return render(request, 'Car_owners/Authentication_page/password_successful.html' )
 
 def Forgot_password(request):
     if request.method == 'POST':
@@ -94,12 +127,12 @@ def Forgot_password(request):
                 fail_silently=False,
             )
 
-            return render(request, 'Authentication_page/password_reset_done.html')
+            return render(request, 'Car_owners/Authentication_page/password_reset_done.html')
         else:
             error_message = "Email not found."
-            return render(request, 'Authentication_page/forgotPassword.html', {'error_message': error_message})
+            return render(request, 'Car_owners/Authentication_page/forgotPassword.html', {'error_message': error_message})
 
-    return render(request, 'Authentication_page/forgotPassword.html')
+    return render(request, 'Car_owners/Authentication_page/forgotPassword.html')
 
 
 def Reset_password(request, uidb64, token):
@@ -111,7 +144,7 @@ def Reset_password(request, uidb64, token):
         # Check if the passwords match
         if new_password != confirm_password:
             error_message = "Passwords do not match."
-            return render(request, 'Authentication_page/resetPassword.html', {
+            return render(request, 'Car_owners/Authentication_page/resetPassword.html', {
                 'error_message': error_message,
                 'uidb64': uidb64,
                 'token': token
@@ -134,10 +167,10 @@ def Reset_password(request, uidb64, token):
                 if user is not None:
                     login(request, user)
 
-                return render(request, 'Authentication_page/password_successful.html')
+                return render(request, 'Car_owners/Authentication_page/password_successful.html')
             else:
                 error_message = "Token is invalid or expired."
-                return render(request, 'Authentication_page/password_reset_confirm.html', {
+                return render(request, 'Car_owners/Authentication_page/password_reset_confirm.html', {
                     'error_message': error_message,
                     'uidb64': uidb64,
                     'token': token
@@ -145,23 +178,25 @@ def Reset_password(request, uidb64, token):
 
         except (TypeError, ValueError, OverflowError, get_user_model().DoesNotExist):
             error_message = "User not found or invalid data."
-            return render(request, 'Authentication_page/password_reset_confirm.html', {
+            return render(request, 'Car_owners/Authentication_page/password_reset_confirm.html', {
                 'error_message': error_message,
                 'uidb64': uidb64,
                 'token': token
             })
 
     # If GET request, show the reset password form
-    return render(request, 'Authentication_page/resetPassword.html', {
+    return render(request, 'Car_owners/Authentication_page/resetPassword.html', {
         'uidb64': uidb64,
         'token': token
     })
 
 
-def Dashboard(request):
+def dashboard(request):
     notifications = Notification.objects.filter(user=request.user)
     unread_count = notifications.filter(is_read=False).count()
-    return render(request, 'dashboard.html',{'unread_count': unread_count})
+    profile, _ = Profile.objects.get_or_create(user=request.user)
+    
+    return render(request, 'Car_owners/dashboard.html',{'unread_count': unread_count,'profile': profile, })
 
 def booking_view(request):
     if request.method == 'POST':
@@ -182,7 +217,7 @@ def Notifications(request):
         title__icontains=search_query) | notifications.filter(
         message__icontains=search_query)
    
-    return render(request, 'notification/notification.html', {
+    return render(request, 'Car_owners/notification/notification.html', {
         'notifications': notifications,
         'unread_count': unread_count,
         'search_query': search_query
@@ -194,7 +229,7 @@ def notification_detail(request, pk):
     if not notification.is_read:
         notification.is_read = True
         notification.save()
-    return render(request, 'notification/notification_detail.html', {'notification': notification})
+    return render(request, 'Car_owners/notification/notification_detail.html', {'notification': notification})
 
     
 @login_required
@@ -221,22 +256,26 @@ def create_notification(request):
         message = request.POST.get('message')
         notification = Notification.objects.create(user=request.user, title=title, message=message)
         return redirect('notification')
-    return render(request, 'notification/create_notification.html')
+    return render(request, 'Car_owners/notification/create_notification.html')
 
 def CreateID(request):
-    return render(request, 'createID.html' )
+    return render(request, 'Car_owners/createID.html' )
 
 def Feedback(request):
-    return render(request, 'feedback.html' )
+    return render(request, 'Car_owners/feedback.html' )
 
 def Chatbox(request):
-    return render(request, 'chatbox.html' )
+    return render(request, 'Car_owners/chatbox.html' )
 
 def LocationFinder(request):
-    return render(request, 'locationFinder.html' )
+    return render(request, 'Car_owners/locationFinder.html' )
 
 def Service(request):
-    return render(request, 'service.html' )
+    return render(request, 'Car_owners/service.html' )
 
 def Payment(request):
-    return render(request, 'payment.html' )
+    return render(request, 'Car_owners/payment.html' )
+
+
+def Artisan(request):
+    return render(request, 'Car_owners/artisan.html' )

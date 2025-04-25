@@ -160,3 +160,6 @@ ACCOUNT_LOGIN_METHODS = {'email', 'username'}
 ACCOUNT_SIGNUP_FIELDS = ['email*', 'password1*', 'password2*'] 
 
 SOCIALACCOUNT_QUERY_EMAIL = True
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'

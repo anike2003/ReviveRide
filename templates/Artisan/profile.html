@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f7fc;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 80%;
+            max-width: 1200px;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .profile-info {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .profile-info p {
+            font-size: 18px;
+            margin: 10px 0;
+            color: #555;
+        }
+
+        .profile-info strong {
+            color: #333;
+        }
+
+        .profile-info img {
+            border-radius: 50%;
+            border: 2px solid #ddd;
+            margin-top: 20px;
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+        }
+
+        .no-image {
+            color: #888;
+            margin-top: 10px;
+        }
+
+        .edit-link {
+            display: block;
+            text-align: center;
+            margin-top: 30px;
+            font-size: 18px;
+            color: #007bff;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            background-color: #f0f8ff;
+            transition: background-color 0.3s ease;
+        }
+
+        .edit-link:hover {
+            background-color: #e1f0ff;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="profile-info">
+            {% if profile.profile_image %}
+                <img src="{{ profile.profile_image.url }}" alt="Profile Image">
+            {% else %}
+                <p class="no-image">No profile image uploaded</p>
+            {% endif %}
+        </div>
+        <h2>Profile</h2>
+
+        <div class="profile-info">
+            <p><strong>First Name:</strong> {{ user.first_name }}</p>
+            <p><strong>Last Name:</strong> {{ user.last_name }}</p>
+            <p><strong>Email:</strong> {{ user.email }}</p>
+        </div>
+
+     
+
+        <a href="{% url 'edit_profile' %}" class="edit-link">Edit Profile</a>
+    </div>
+
+</body>
+</html>
