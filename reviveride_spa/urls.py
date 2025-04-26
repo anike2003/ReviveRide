@@ -14,6 +14,7 @@ urlpatterns = [
     path('reset_password/<uidb64>/<token>/reset_password', views.Reset_password,name='reset_password'),
     path('dashboard/', views.dashboard,name='dashboard'),
     path('password_successful/', views.Password_successful,name='password_successful'),
+    path('contact/', views.contact_view, name='contact'),
     path('createID/', views.CreateID,name='createID'),
     path('feedback/', views.Feedback,name='feedback'),
     path('chatbox/', views.Chatbox,name='chatbox'),

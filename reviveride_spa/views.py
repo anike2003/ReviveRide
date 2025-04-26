@@ -17,6 +17,7 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes, force_str
 from django.urls import reverse
 from .forms import CombinedProfileForm
+from .models import ContactMessage
 
 # Local imports
 from .models import Notification,Profile
@@ -24,7 +25,7 @@ from .token import token_generator
 
 
 def Home(request):
-    return redirect('dashboard')
+    return render(request, 'landingPage.html') 
 
 def Signup(request):
     if request.method == 'POST':
@@ -257,6 +258,26 @@ def create_notification(request):
         notification = Notification.objects.create(user=request.user, title=title, message=message)
         return redirect('notification')
     return render(request, 'Car_owners/notification/create_notification.html')
+
+
+def contact_view(request):
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        message = request.POST.get('message')
+
+        # Basic validation (optional)
+        if not all([name, email, message]):
+            messages.error(request, "All fields are required.")
+        else:
+            # Save to DB (optional)
+            ContactMessage.objects.create(name=name, email=email, message=message)
+
+            # You can also send email here if needed
+            messages.success(request, "Message sent successfully!")
+            return redirect('contact')  # redirect to avoid form resubmission
+
+    return render(request, 'landing/contact.html')
 
 def CreateID(request):
     return render(request, 'Car_owners/createID.html' )
